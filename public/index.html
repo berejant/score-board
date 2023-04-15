@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="wasm_exec.js"></script>
+    <title>Score Board</title>
+    <style>
+        textarea, input {
+            width: 100%;
+        }
+
+        textarea {
+            height: 300px;
+        }
+
+        input[type="submit"] {
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <form action="#" id="scoreForm">
+        <textarea id="score" placeholder="Example:&#10;Mexico - Canada: 0 - 5&#10;Spain - Brazil: 10 – 2&#10;..."></textarea>
+        <input type="submit" value="Add" />
+    </form>
+
+    <ol id="scores">
+
+    </ol>
+
+    <script>
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("scoreBoard.wasm"), go.importObject)
+            .then((result) => {
+                go.run(result.instance);
+            });
+
+        const scoresList = document.getElementById("scores")
+
+        function RefreshScores() {
+            const scores = JSON.parse(GetScores());
+
+            while (scoresList.firstChild) scoresList.removeChild(scoresList.firstChild);
+            console.log(scores);
+
+            for (let score of scores) {
+                const scoreElement = document.createElement('li')
+                console.log(score);
+                scoreElement.innerText = `${score.HomeTeamName} ${score.HomeTeamScore} - ${score.GuestTeamName} ${score.GuestTeamScore}`
+                scoresList.appendChild(scoreElement)
+            }
+        }
+
+
+        const scoreInput = document.getElementById("score")
+        document.getElementById("scoreForm").addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let inputLines = scoreInput.value.trim().split("\n")
+            console.log(inputLines)
+            let haveError = false;
+            for(let inputLine of inputLines) {
+                inputLine = inputLine.trim();
+                // b. Spain - Brazil: 10 – 2 => Spain - Brazil: 10 – 2
+                inputLine = inputLine.replace(/^[a-z]\.\s*/, '');
+                if (inputLine.length) {
+                    let error = PutScore(inputLine)
+                    console.log(inputLine, error)
+                    haveError = haveError || error
+                    if (error) {
+                        alert(error)
+                    }
+                }
+            }
+
+            if (!haveError) {
+                scoreInput.value = "";
+            }
+            RefreshScores();
+        })
+    </script>
+</body>
+</html>

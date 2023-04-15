@@ -1,0 +1,15 @@
+mode: set
+scoreBoard/Score.go:17.40,19.2 1 1
+scoreBoard/Score.go:24.65,27.23 2 1
+scoreBoard/Score.go:27.23,29.3 1 1
+scoreBoard/Score.go:29.8,34.3 4 1
+scoreBoard/Score.go:35.2,35.8 1 1
+scoreBoard/ScoreBoard.go:11.48,13.2 1 1
+scoreBoard/ScoreBoard.go:15.46,20.24 4 1
+scoreBoard/ScoreBoard.go:20.24,22.3 1 1
+scoreBoard/ScoreBoard.go:24.2,24.21 1 1
+scoreBoard/Scores.go:6.42,9.2 1 1
+scoreBoard/Scores.go:11.32,13.2 1 1
+scoreBoard/Scores.go:15.37,17.2 1 1
+scoreBoard/Scores.go:19.43,21.2 1 1
+scoreBoard/Scores.go:23.41,29.2 5 1
