@@ -6,6 +6,12 @@ on:
     # as discussed in the publishing sources section
     # this can change if you are using an user/organization repo
     branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
