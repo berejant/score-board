@@ -41,11 +41,9 @@
             const scores = JSON.parse(GetScores());
 
             while (scoresList.firstChild) scoresList.removeChild(scoresList.firstChild);
-            console.log(scores);
 
             for (let score of scores) {
                 const scoreElement = document.createElement('li')
-                console.log(score);
                 scoreElement.innerText = `${score.HomeTeamName} ${score.HomeTeamScore} - ${score.GuestTeamName} ${score.GuestTeamScore}`
                 scoresList.appendChild(scoreElement)
             }
@@ -57,7 +55,6 @@
             event.preventDefault();
 
             let inputLines = scoreInput.value.trim().split("\n")
-            console.log(inputLines)
             let haveError = false;
             for(let inputLine of inputLines) {
                 inputLine = inputLine.trim();
@@ -65,7 +62,6 @@
                 inputLine = inputLine.replace(/^[a-z]\.\s*/, '');
                 if (inputLine.length) {
                     let error = PutScore(inputLine)
-                    console.log(inputLine, error)
                     haveError = haveError || error
                     if (error) {
                         alert(error)
